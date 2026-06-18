@@ -12,10 +12,10 @@ vim.diagnostic.config({
 -- Configs ship with nvim-lspconfig; defaults work out of the box.
 local servers = {
   "lua_ls",
-  -- "pyright",
-  -- "ts_ls",
+  "gopls", -- Go
+  "pyright", -- Python
+  "ts_ls", -- JavaScript / TypeScript
   -- "rust_analyzer",
-  -- "gopls",
   -- "clangd",
 }
 for _, server in ipairs(servers) do

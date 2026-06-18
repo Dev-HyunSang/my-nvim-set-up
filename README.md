@@ -7,7 +7,10 @@
 - Neovim **0.11 이상** (네이티브 LSP / 자동완성 API 사용)
 - `git`, `make`, C 컴파일러 (treesitter 파서 빌드용)
 - [Nerd Font](https://www.nerdfonts.com/) (아이콘 표시용)
-- 사용하려는 언어의 LSP 서버 (예: `lua_ls`)
+- LSP 서버는 [mason.nvim](https://github.com/williamboman/mason.nvim)이 자동 설치하지만, 각 언어의 런타임/툴체인은 시스템에 있어야 합니다:
+  - **Go** (`go`) — `gopls`
+  - **Node.js** (`node`) — Python의 `pyright` 및 JS/TS의 `ts_ls` 구동에 필요
+  - **Python** (`python3`) — `pyright`로 타입 체크할 인터프리터
 
 ## 설치
 
@@ -40,8 +43,10 @@ nvim
 | 플러그인 | 설명 |
 | --- | --- |
 | [lazy.nvim](https://github.com/folke/lazy.nvim) | 플러그인 매니저 |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | 구문 강조 / 파싱 (highlight, indent 활성화) |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | 구문 강조 / 파싱 (go, python, js/ts 등 파서 자동 설치) |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | LSP 설정 (네이티브 `vim.lsp.enable` 사용) |
+| [mason.nvim](https://github.com/williamboman/mason.nvim) | LSP 서버/도구 설치 관리자 |
+| [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim) | mason ↔ lspconfig 연동 (서버 자동 설치/활성화) |
 | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | 상태줄(statusline) |
 | [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | 파일 탐색기 |
 | [tagbar](https://github.com/preservim/tagbar) | 태그/심볼 브라우저 |
@@ -89,19 +94,32 @@ nvim
 - 검색: `ignorecase` + `smartcase`, `hlsearch`, `incsearch`
 - UI: `cursorline`, `signcolumn=yes`, `scrolloff=8`, 분할은 오른쪽/아래로
 
-## LSP 서버 추가
+## 언어 지원 (LSP)
 
-`lua/config/lsp.lua` 의 `servers` 테이블에 서버 이름을 추가하면 됩니다.
+기본으로 아래 언어가 바로 동작합니다. 해당 파일을 열면 mason이 서버를 자동 설치하고 LSP가 attach됩니다.
+
+| 언어 | LSP 서버 |
+| --- | --- |
+| Lua | `lua_ls` |
+| Go | `gopls` |
+| Python | `pyright` |
+| JavaScript / TypeScript | `ts_ls` |
+
+설치 상태는 `:Mason` 명령으로 확인/관리할 수 있습니다.
+
+### LSP 서버 추가
+
+`lua/config/lsp.lua` 의 `servers` 테이블에 서버 이름을 추가하고,
+`lua/plugins/mason.lua` 의 `ensure_installed` 에도 동일하게 추가하면 자동 설치됩니다.
 
 ```lua
+-- lua/config/lsp.lua
 local servers = {
   "lua_ls",
-  -- "pyright",
-  -- "ts_ls",
+  "gopls", -- Go
+  "pyright", -- Python
+  "ts_ls", -- JavaScript / TypeScript
   -- "rust_analyzer",
-  -- "gopls",
   -- "clangd",
 }
 ```
-
-해당 LSP 서버 바이너리는 시스템에 별도로 설치되어 있어야 합니다.
