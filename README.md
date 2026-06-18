@@ -47,6 +47,8 @@ nvim
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | LSP 설정 (네이티브 `vim.lsp.enable` 사용) |
 | [mason.nvim](https://github.com/williamboman/mason.nvim) | LSP 서버/도구 설치 관리자 |
 | [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim) | mason ↔ lspconfig 연동 (서버 자동 설치/활성화) |
+| [mason-tool-installer.nvim](https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim) | 포맷터 등 CLI 도구 자동 설치 |
+| [conform.nvim](https://github.com/stevearc/conform.nvim) | 저장 시 자동 포맷팅 |
 | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | 상태줄(statusline) |
 | [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | 파일 탐색기 |
 | [tagbar](https://github.com/preservim/tagbar) | 태그/심볼 브라우저 |
@@ -106,6 +108,19 @@ nvim
 | JavaScript / TypeScript | `ts_ls` |
 
 설치 상태는 `:Mason` 명령으로 확인/관리할 수 있습니다.
+
+## 자동 포맷팅
+
+[conform.nvim](https://github.com/stevearc/conform.nvim) 으로 **저장(`:w`) 시 자동 포맷**됩니다. 포맷터는 mason이 자동 설치하며, `<leader>f` 로 수동 포맷도 가능합니다 (일반/비주얼 모드).
+
+| 파일 타입 | 포맷터 |
+| --- | --- |
+| Lua | `stylua` |
+| Go | `goimports` → `gofmt` |
+| Python | `ruff` (포맷 + import 정렬) |
+| JavaScript / TypeScript / JSON | `prettier` |
+
+> 전용 포맷터가 없는 파일 타입은 LSP 포맷(`lsp_format = "fallback"`)으로 처리됩니다.
 
 ### LSP 서버 추가
 

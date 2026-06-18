@@ -41,7 +41,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("[d", vim.diagnostic.goto_prev, "Prev Diagnostic")
     map("]d", vim.diagnostic.goto_next, "Next Diagnostic")
     map("<leader>f", function()
-      vim.lsp.buf.format({ async = true })
+      require("conform").format({ async = true, lsp_format = "fallback" })
     end, "Format Buffer")
 
     -- Native autocompletion (Neovim 0.11+)
