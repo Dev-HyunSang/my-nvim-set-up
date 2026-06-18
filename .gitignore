@@ -1,0 +1,11 @@
+# Lazy.nvim / vim-plug installed plugins (managed by lazy-lock.json)
+plugged/
+lazy/
+
+# OMC (oh-my-claudecode) local state
+.omc/
+
+# Editor / OS noise
+*.swp
+*.swo
+.DS_Store

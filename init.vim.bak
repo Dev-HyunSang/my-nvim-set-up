@@ -1,0 +1,18 @@
+call plug#begin('~/.config/nvim/plugged')
+
+# INSTALL PLUGINS
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'neovim/nvim-lspconfig'
+Plug 'neoclide/coc.nvim'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'preservim/nerdtree'
+Plug 'preservim/tagbar'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'NeogitOrg/neogit'
+Plug 'sindrets/diffview.nvim'
+
+# KEY MAP
+nmap <F8> :TagbarToggle<CR>
+
+
+call plug#end()
